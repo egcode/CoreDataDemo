@@ -29,9 +29,53 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        p1.name = "NameOne"
 //        self.people.append(p1)
         
+        // Add NavigationBar button
+        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
+        self.navigationItem.rightBarButtonItem = barButton
+
+        
         self.fetchPeople()
     }
 
+    
+    
+
+
+// MARK: - CoreData Add
+
+@objc func addPerson() {
+    let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
+    alertController.addTextField { (textField : UITextField!) -> Void in
+        textField.placeholder = "Enter name"
+    }
+
+    let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+        if let textField = alertController.textFields?[0] {
+            if let txt = textField.text {
+                print("Person Added :: \(txt)")
+                // Create CoreData Person here
+                
+                
+                
+                
+            } else {
+                print("No text to add")
+            }
+        }
+    })
+
+    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+        (action : UIAlertAction!) -> Void in })
+
+    alertController.addAction(cancelAction)
+    alertController.addAction(saveAction)
+    alertController.preferredAction = saveAction
+    self.present(alertController, animated: true, completion: nil)
+
+}
+
+    
+    
     
     func fetchPeople() {
         // Fetch people from the cache
