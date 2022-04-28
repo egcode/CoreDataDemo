@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     var people:[Person]?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    
+    let performOnBackground = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +28,19 @@ class ViewController: UIViewController {
         self.tableView.delegate = self
         
         // Add NavigationBar button
-        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
-        self.navigationItem.rightBarButtonItem = barButton
+        if self.performOnBackground {
+            let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonBackgroundThread))
+            self.navigationItem.rightBarButtonItem = barButton
+        } else {
+            let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
+            self.navigationItem.rightBarButtonItem = barButton
+        }
 
-        
-        self.fetchPeople()
+        if self.performOnBackground {
+            self.fetchPeopleBackgroundThread()
+        } else {
+            self.fetchPeople()
+        }
     }
 
     // MARK: - CoreData Fetch

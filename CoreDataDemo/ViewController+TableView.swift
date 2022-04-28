@@ -21,7 +21,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = UIContextualAction(style: .destructive, title: "RemovePers") {  (contextualAction, view, boolValue) in
-            self.removePerson(indexPath: indexPath)
+            if self.performOnBackground {
+                self.removePersonBackgroundThread(indexPath: indexPath)
+            } else {
+                self.removePerson(indexPath: indexPath)
+            }
         }
         
         item.image = UIImage(named: "deleteIcon")
@@ -30,7 +34,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.editPerson(indexPath: indexPath)
+        if self.performOnBackground {
+            self.editPersonBackgroundThread(indexPath: indexPath)
+        } else {
+            self.editPerson(indexPath: indexPath)
+        }
     }
 
     
