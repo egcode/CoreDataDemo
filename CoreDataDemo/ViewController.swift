@@ -160,5 +160,41 @@ class ViewController: UIViewController {
         alertController.preferredAction = saveAction
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    
+    // MARK: - CoreData Relationship Demo
+    
+    func relationshipDemo() {
+        /*
+         
+         Method is not used within this app,
+         just demonstrates how to create relationships between objects (Object Graph)
+         
+         */
+        
+        // Create a family
+        let newFamily = Family(context: self.context)
+        newFamily.name = "ABC Family"
+        
+        //Create a person
+        let person = Person(context: self.context)
+        person.name = "SomeName"
+        person.age = 22
+        person.gender = "SomeGender"
+        person.family = newFamily      // Creating relationship Example1
+//        newFamily.addToPeople(person)  // Creating relationship Example2
+        
+        
+        // - Save the Data
+        do {
+            try self.context.save()
+        } catch {
+            print("Unable To save new person in demo \(error)")
+        }
+        
+        
+        
+
+    }
 }
 
