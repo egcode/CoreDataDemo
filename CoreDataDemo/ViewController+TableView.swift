@@ -22,20 +22,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = UIContextualAction(style: .destructive, title: "RemovePers") {  (contextualAction, view, boolValue) in
          
-            // Person to remove
+            // - Person to remove
             let personToRemove = self.people![indexPath.row]
             
-            // Remove the person
+            // - Remove the person
             self.context.delete(personToRemove)
             
-            // Save the data
+            // - Save the data
             do {
                 try self.context.save()
             } catch {
                 print("Unable save after delet a person: \(error)")
             }
             
-            // Refetch the data
+            // - Refetch the data
             self.fetchPeople()
         }
         
@@ -60,17 +60,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if let textField = alertController.textFields?[0] {
                 if let txt = textField.text {
                     print("Person Updated :: \(txt)")
-                    // Update CoreData Person name
+                    
+                    // - Update CoreData Person name
                     selectedPerson.name = txt
                     
-                    // Save the Data
+                    // - Save the Data
                     do {
                         try self.context.save()
                     } catch {
                         print("Unable To save person \(error)")
                     }
                     
-                    // Re-Fetch the data
+                    // - Re-Fetch the data
                     self.fetchPeople()
                     
                     

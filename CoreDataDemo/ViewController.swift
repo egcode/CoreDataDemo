@@ -24,12 +24,6 @@ class ViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        
-//        //Fake People
-//        let p1 = Person()
-//        p1.name = "NameOne"
-//        self.people.append(p1)
-        
         // Add NavigationBar button
         let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
         self.navigationItem.rightBarButtonItem = barButton
@@ -50,7 +44,6 @@ class ViewController: UIViewController {
     }
 
 
-
     // MARK: - CoreData Add
 
     @objc func addPerson() {
@@ -63,20 +56,21 @@ class ViewController: UIViewController {
             if let textField = alertController.textFields?[0] {
                 if let txt = textField.text {
                     print("Person Added :: \(txt)")
-                    // Create CoreData Person
+                    
+                    // - Create CoreData Person
                     let newPerson = Person(context: self.context)
                     newPerson.name = txt
                     newPerson.age = 10
                     newPerson.gender = "Male"
                     
-                    // Save the Data
+                    // - Save the Data
                     do {
                         try self.context.save()
                     } catch {
                         print("Unable To save person \(error)")
                     }
                     
-                    // Re-Fetch the data
+                    // - Re-Fetch the data
                     self.fetchPeople()
                     
                     
