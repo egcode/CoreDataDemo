@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     }
 
 
-    // MARK: - CoreData Add
+    // MARK: - CoreData Add, Remove, Edit
 
     @objc func addPerson() {
         let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
@@ -100,7 +100,65 @@ class ViewController: UIViewController {
         alertController.addAction(saveAction)
         alertController.preferredAction = saveAction
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func removePerson(indexPath: IndexPath) {
+        
+        // - Person to remove
+        let personToRemove = self.people![indexPath.row]
 
+        // - Remove the person
+        self.context.delete(personToRemove)
+
+        // - Save the data
+        do {
+            try self.context.save()
+        } catch {
+            print("Unable save after delet a person: \(error)")
+        }
+
+        // - Refetch the data
+        self.fetchPeople()
+    }
+    
+    func editPerson(indexPath: IndexPath) {
+        let selectedPerson = self.people![indexPath.row]
+        
+        let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.text = selectedPerson.name
+        }
+        let saveAction = UIAlertAction(title: "Update", style: .default, handler: { alert -> Void in
+            if let textField = alertController.textFields?[0] {
+                if let txt = textField.text {
+                    print("Person Updated :: \(txt)")
+                    
+                    // - Update CoreData Person name
+                    selectedPerson.name = txt
+                    
+                    // - Save the Data
+                    do {
+                        try self.context.save()
+                    } catch {
+                        print("Unable To save person \(error)")
+                    }
+                    
+                    // - Re-Fetch the data
+                    self.fetchPeople()
+                    
+                    
+                } else {
+                    print("No text to add")
+                }
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in })
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        alertController.preferredAction = saveAction
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
