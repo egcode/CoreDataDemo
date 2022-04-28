@@ -17,6 +17,7 @@
 		441E3DA82819F4A200DCE0C1 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DA62819F4A200DCE0C1 /* Person+CoreDataClass.swift */; };
 		441E3DA92819F4A200DCE0C1 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DA72819F4A200DCE0C1 /* Person+CoreDataProperties.swift */; };
 		441E3DAF281A047400DCE0C1 /* PeopleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DAE281A047400DCE0C1 /* PeopleTVC.swift */; };
+		441E3DB3281A159C00DCE0C1 /* ViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DB2281A159C00DCE0C1 /* ViewController+TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		441E3DA62819F4A200DCE0C1 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
 		441E3DA72819F4A200DCE0C1 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		441E3DAE281A047400DCE0C1 /* PeopleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTVC.swift; sourceTree = "<group>"; };
+		441E3DB2281A159C00DCE0C1 /* ViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TableView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				441E3D882819E7E500DCE0C1 /* AppDelegate.swift */,
 				441E3D8A2819E7E500DCE0C1 /* SceneDelegate.swift */,
 				441E3D8C2819E7E500DCE0C1 /* ViewController.swift */,
+				441E3DB2281A159C00DCE0C1 /* ViewController+TableView.swift */,
 				441E3D8E2819E7E500DCE0C1 /* Main.storyboard */,
 				441E3D942819E7E600DCE0C1 /* Assets.xcassets */,
 				441E3D962819E7E600DCE0C1 /* LaunchScreen.storyboard */,
@@ -164,6 +167,7 @@
 				441E3DA82819F4A200DCE0C1 /* Person+CoreDataClass.swift in Sources */,
 				441E3D892819E7E500DCE0C1 /* AppDelegate.swift in Sources */,
 				441E3D8B2819E7E500DCE0C1 /* SceneDelegate.swift in Sources */,
+				441E3DB3281A159C00DCE0C1 /* ViewController+TableView.swift in Sources */,
 				441E3DAF281A047400DCE0C1 /* PeopleTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
