@@ -16,7 +16,6 @@
 		441E3D982819E7E600DCE0C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 441E3D962819E7E600DCE0C1 /* LaunchScreen.storyboard */; };
 		441E3DA82819F4A200DCE0C1 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DA62819F4A200DCE0C1 /* Person+CoreDataClass.swift */; };
 		441E3DA92819F4A200DCE0C1 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DA72819F4A200DCE0C1 /* Person+CoreDataProperties.swift */; };
-		441E3DAF281A047400DCE0C1 /* PeopleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DAE281A047400DCE0C1 /* PeopleTVC.swift */; };
 		441E3DB3281A159C00DCE0C1 /* ViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DB2281A159C00DCE0C1 /* ViewController+TableView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +31,6 @@
 		441E3D992819E7E600DCE0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		441E3DA62819F4A200DCE0C1 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
 		441E3DA72819F4A200DCE0C1 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		441E3DAE281A047400DCE0C1 /* PeopleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTVC.swift; sourceTree = "<group>"; };
 		441E3DB2281A159C00DCE0C1 /* ViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TableView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,7 +74,6 @@
 				441E3D962819E7E600DCE0C1 /* LaunchScreen.storyboard */,
 				441E3D992819E7E600DCE0C1 /* Info.plist */,
 				441E3D912819E7E500DCE0C1 /* CoreDataDemo.xcdatamodeld */,
-				441E3DAE281A047400DCE0C1 /* PeopleTVC.swift */,
 			);
 			path = CoreDataDemo;
 			sourceTree = "<group>";
@@ -168,7 +165,6 @@
 				441E3D892819E7E500DCE0C1 /* AppDelegate.swift in Sources */,
 				441E3D8B2819E7E500DCE0C1 /* SceneDelegate.swift in Sources */,
 				441E3DB3281A159C00DCE0C1 /* ViewController+TableView.swift in Sources */,
-				441E3DAF281A047400DCE0C1 /* PeopleTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
