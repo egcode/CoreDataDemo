@@ -19,6 +19,34 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return self.people!.count
     }
 
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let item = UIContextualAction(style: .destructive, title: "RemovePers") {  (contextualAction, view, boolValue) in
+         
+            // Person to remove
+            let personToRemove = self.people![indexPath.row]
+            
+            // Remove the person
+            self.context.delete(personToRemove)
+            
+            // Save the data
+            do {
+                try self.context.save()
+            } catch {
+                print("Unable save after delet a person: \(error)")
+            }
+            
+            // Refetch the data
+            self.fetchPeople()
+        }
+        
+        item.image = UIImage(named: "deleteIcon")
+
+        let swipeActions = UISwipeActionsConfiguration(actions: [item])
+    
+        return swipeActions
+
+    }
+    
     // MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
