@@ -14,7 +14,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var tableView: UITableView!
     
-//    var people = [Person]()
+    var people:[Person]?
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     
@@ -37,50 +38,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.fetchPeople()
     }
 
-    
-    
-
-
-// MARK: - CoreData Add
-
-@objc func addPerson() {
-    let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
-    alertController.addTextField { (textField : UITextField!) -> Void in
-        textField.placeholder = "Enter name"
-    }
-
-    let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-        if let textField = alertController.textFields?[0] {
-            if let txt = textField.text {
-                print("Person Added :: \(txt)")
-                // Create CoreData Person here
-                
-                
-                
-                
-            } else {
-                print("No text to add")
-            }
-        }
-    })
-
-    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
-        (action : UIAlertAction!) -> Void in })
-
-    alertController.addAction(cancelAction)
-    alertController.addAction(saveAction)
-    alertController.preferredAction = saveAction
-    self.present(alertController, animated: true, completion: nil)
-
-}
-
-    
-    
+    // MARK: - CoreData Fetch all
     
     func fetchPeople() {
-        // Fetch people from the cache
+        do {
+            self.people = try context.fetch(Person.fetchRequest())
+            DispatchQueue.main.async { self.tableView.reloadData() }
+        } catch {
+            print("ERROR: \(error)")
+        }
     }
-    
+
+
+
+    // MARK: - CoreData Add
+
+    @objc func addPerson() {
+        let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter name"
+        }
+
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+            if let textField = alertController.textFields?[0] {
+                if let txt = textField.text {
+                    print("Person Added :: \(txt)")
+                    // Create CoreData Person
+                    let newPerson = Person(context: self.context)
+                    newPerson.name = txt
+                    newPerson.age = 10
+                    newPerson.gender = "Male"
+                    
+                    // Save the Data
+                    do {
+                        try self.context.save()
+                    } catch {
+                        print("Unable To save person \(error)")
+                    }
+                    
+                    // Re-Fetch the data
+                    self.fetchPeople()
+                    
+                    
+                } else {
+                    print("No text to add")
+                }
+            }
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in })
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        alertController.preferredAction = saveAction
+        self.present(alertController, animated: true, completion: nil)
+
+    }
+
+
     
     // MARK: - Table view delegate
 
@@ -92,8 +108,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-//        return self.people.count
-        return 3
+        return self.people!.count
+//        return 3
 
     }
 
@@ -101,8 +117,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdent", for: indexPath)
-//        cell.textLabel?.text = self.people[indexPath.row].name
-        cell.textLabel?.text = "aa"
+        
+        let person = self.people![indexPath.row]
+        cell.textLabel?.text = person.name
+//        cell.textLabel?.text = "aa"
 
         // Configure the cell...
 
