@@ -21,10 +21,17 @@ extension VC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = UIContextualAction(style: .destructive, title: "RemovePers") {  (contextualAction, view, boolValue) in
-            if self.performOnBackground {
-                self.removePersonBackgroundThread(indexPath: indexPath)
-            } else {
+            
+            switch self.performOn {
+            case .main:
                 self.removePerson(indexPath: indexPath)
+                break
+            case .background:
+                self.removePersonBackgroundThread(indexPath: indexPath)
+                break
+            case .backgroundDetailed:
+                self.removePersonBackgroundThreadDetailed(indexPath: indexPath)
+                break
             }
         }
         
@@ -34,10 +41,18 @@ extension VC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.performOnBackground {
-            self.editPersonBackgroundThread(indexPath: indexPath)
-        } else {
+        
+        
+        switch self.performOn {
+        case .main:
             self.editPerson(indexPath: indexPath)
+            break
+        case .background:
+            self.editPersonBackgroundThread(indexPath: indexPath)
+            break
+        case .backgroundDetailed:
+            self.editPersonBackgroundThreadDetailed(indexPath: indexPath)
+            break
         }
     }
 

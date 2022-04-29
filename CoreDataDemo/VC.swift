@@ -8,16 +8,27 @@
 import UIKit
 import CoreData
 
+enum PerformOn {
+    case main
+    case background
+    case backgroundDetailed
+}
+
 class VC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var people:[Person]?
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let contextMain = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
     
-    let performOnBackground = true
+    let performOn:PerformOn = .backgroundDetailed
+    
+    
+    // Private ManagedObjectContext for using in BackgroundDetailed examples
+    let contextPrivate = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +36,25 @@ class VC: UIViewController {
         self.tableView.delegate = self
         
         // Add NavigationBar button
-        if self.performOnBackground {
-            let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonBackgroundThread))
-            self.navigationItem.rightBarButtonItem = barButton
-        } else {
+        switch self.performOn {
+        case .main:
             let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
             self.navigationItem.rightBarButtonItem = barButton
+            self.fetchPeople()
+            break
+        case .background:
+            let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonBackgroundThread))
+            self.navigationItem.rightBarButtonItem = barButton
+            self.fetchPeopleBackgroundThread()
+
+            break
+        case .backgroundDetailed:
+            let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonBackgroundThreadDetailed))
+            self.navigationItem.rightBarButtonItem = barButton
+            self.fetchPeopleBackgroundThreadDetailed()
+            break
         }
 
-        if self.performOnBackground {
-            self.fetchPeopleBackgroundThread()
-        } else {
-            self.fetchPeople()
-        }
     }
 
     // MARK: - CoreData Fetch
@@ -56,7 +73,7 @@ class VC: UIViewController {
             let sort = NSSortDescriptor(key: "name", ascending: true)
             request.sortDescriptors = [sort]
             
-            self.people = try context.fetch(request)
+            self.people = try contextMain.fetch(request)
             DispatchQueue.main.async { self.tableView.reloadData() }
         } catch {
             print("ERROR: \(error)")
@@ -78,14 +95,14 @@ class VC: UIViewController {
                     print("Person Added :: \(txt)")
                     
                     // - Create CoreData Person
-                    let newPerson = Person(context: self.context)
+                    let newPerson = Person(context: self.contextMain)
                     newPerson.name = txt
                     newPerson.age = 10
                     newPerson.gender = "Male"
                     
                     // - Save the Data
                     do {
-                        try self.context.save()
+                        try self.contextMain.save()
                     } catch {
                         print("Unable To save person \(error)")
                     }
@@ -115,11 +132,11 @@ class VC: UIViewController {
         let personToRemove = self.people![indexPath.row]
 
         // - Remove the person
-        self.context.delete(personToRemove)
+        self.contextMain.delete(personToRemove)
 
         // - Save the data
         do {
-            try self.context.save()
+            try self.contextMain.save()
         } catch {
             print("Unable save after delet a person: \(error)")
         }
@@ -145,7 +162,7 @@ class VC: UIViewController {
                     
                     // - Save the Data
                     do {
-                        try self.context.save()
+                        try self.contextMain.save()
                     } catch {
                         print("Unable To save person \(error)")
                     }
@@ -180,11 +197,11 @@ class VC: UIViewController {
          */
         
         // Create a family
-        let newFamily = Family(context: self.context)
+        let newFamily = Family(context: self.contextMain)
         newFamily.name = "ABC Family"
         
         //Create a person
-        let person = Person(context: self.context)
+        let person = Person(context: self.contextMain)
         person.name = "SomeName"
         person.age = 22
         person.gender = "SomeGender"
@@ -194,7 +211,7 @@ class VC: UIViewController {
         
         // - Save the Data
         do {
-            try self.context.save()
+            try self.contextMain.save()
         } catch {
             print("Unable To save new person in demo \(error)")
         }

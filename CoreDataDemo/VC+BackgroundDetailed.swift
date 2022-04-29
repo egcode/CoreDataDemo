@@ -1,5 +1,5 @@
 //
-//  VC+Background.swift
+//  VC+BackgroundDetailed.swift
 //  CoreDataDemo
 //
 //  Created by Eugene G on 4/28/22.
@@ -9,19 +9,10 @@ import UIKit
 import CoreData
 
 extension VC {
-    // MARK: - Print
-    
-    func printThread(operation:String) {
-        if Thread.isMainThread {
-            print("\(operation) on main thread")
-        } else {
-            print("\(operation) off main thread")
-        }
-    }
     
     // MARK: - CoreData Fetch - Background Thread
         
-    func fetchPeopleBackgroundThread() {
+    func fetchPeopleBackgroundThreadDetailed() {
         self.printThread(operation: "Fetch All Origin")
         
         do {
@@ -50,7 +41,7 @@ extension VC {
 
     // MARK: - CoreData Add, Remove, Edit - Background Thread
 
-    @objc func addPersonBackgroundThread() {
+    @objc func addPersonBackgroundThreadDetailed() {
         let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter name"
@@ -100,7 +91,7 @@ extension VC {
     }
 
 
-    func removePersonBackgroundThread(indexPath: IndexPath) {
+    func removePersonBackgroundThreadDetailed(indexPath: IndexPath) {
         
         // - Person to remove
         let personToRemove = self.people![indexPath.row]
@@ -130,7 +121,7 @@ extension VC {
         }
     }
     
-    func editPersonBackgroundThread(indexPath: IndexPath) {
+    func editPersonBackgroundThreadDetailed(indexPath: IndexPath) {
         let selectedPerson = self.people![indexPath.row]
         
         let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
@@ -179,7 +170,6 @@ extension VC {
     }
 
     
-    
-    
+
 
 }

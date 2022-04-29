@@ -20,6 +20,7 @@
 		441E3DBA281A23E100DCE0C1 /* Family+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DB6281A23E100DCE0C1 /* Family+CoreDataClass.swift */; };
 		441E3DBB281A23E100DCE0C1 /* Family+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DB7281A23E100DCE0C1 /* Family+CoreDataProperties.swift */; };
 		441E3DBD281B0C9F00DCE0C1 /* VC+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DBC281B0C9F00DCE0C1 /* VC+Background.swift */; };
+		441E3DBF281B645200DCE0C1 /* VC+BackgroundDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E3DBE281B645200DCE0C1 /* VC+BackgroundDetailed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		441E3DB6281A23E100DCE0C1 /* Family+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Family+CoreDataClass.swift"; sourceTree = "<group>"; };
 		441E3DB7281A23E100DCE0C1 /* Family+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Family+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		441E3DBC281B0C9F00DCE0C1 /* VC+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VC+Background.swift"; sourceTree = "<group>"; };
+		441E3DBE281B645200DCE0C1 /* VC+BackgroundDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VC+BackgroundDetailed.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				441E3D8A2819E7E500DCE0C1 /* SceneDelegate.swift */,
 				441E3D8C2819E7E500DCE0C1 /* VC.swift */,
 				441E3DBC281B0C9F00DCE0C1 /* VC+Background.swift */,
+				441E3DBE281B645200DCE0C1 /* VC+BackgroundDetailed.swift */,
 				441E3DB2281A159C00DCE0C1 /* VC+TableView.swift */,
 				441E3D8E2819E7E500DCE0C1 /* Main.storyboard */,
 				441E3D942819E7E600DCE0C1 /* Assets.xcassets */,
@@ -174,6 +177,7 @@
 				441E3DB8281A23E100DCE0C1 /* Person+CoreDataClass.swift in Sources */,
 				441E3D892819E7E500DCE0C1 /* AppDelegate.swift in Sources */,
 				441E3DBD281B0C9F00DCE0C1 /* VC+Background.swift in Sources */,
+				441E3DBF281B645200DCE0C1 /* VC+BackgroundDetailed.swift in Sources */,
 				441E3DBB281A23E100DCE0C1 /* Family+CoreDataProperties.swift in Sources */,
 				441E3D8B2819E7E500DCE0C1 /* SceneDelegate.swift in Sources */,
 				441E3DB3281A159C00DCE0C1 /* VC+TableView.swift in Sources */,
