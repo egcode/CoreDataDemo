@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  VC.swift
 //  CoreDataDemo
 //
 //  Created by Eugene G on 4/27/22.
@@ -8,10 +8,7 @@
 import UIKit
 import CoreData
 
-
-
-
-class ViewController: UIViewController {
+class VC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     

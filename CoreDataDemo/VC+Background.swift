@@ -1,5 +1,5 @@
 //
-//  ViewController+Background.swift
+//  VC+Background.swift
 //  CoreDataDemo
 //
 //  Created by Eugene G on 4/28/22.
@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-extension ViewController {
+extension VC {
     // MARK: - Print
     
     func printThread(operation:String) {

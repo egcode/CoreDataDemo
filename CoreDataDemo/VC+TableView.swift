@@ -1,5 +1,5 @@
 //
-//  ViewController+TableView.swift
+//  VC+TableView.swift
 //  CoreDataDemo
 //
 //  Created by Eugene G on 4/27/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension VC: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Table view delegate
 
