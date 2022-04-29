@@ -23,7 +23,7 @@ class VC: UIViewController {
     let contextMain = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
     
-    let performOn:PerformOn = .backgroundDetailed
+    let performOn:PerformOn = .background
     
     
     // Private ManagedObjectContext for using in BackgroundDetailed examples
@@ -99,6 +99,8 @@ class VC: UIViewController {
                     newPerson.name = txt
                     newPerson.age = 10
                     newPerson.gender = "Male"
+                    newPerson.idURL = newPerson.objectID.uriRepresentation()
+                    print("✅ Created Object with ID: \(String(describing: newPerson.idURL?.absoluteString))")
                     
                     // - Save the Data
                     do {

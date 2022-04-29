@@ -2,7 +2,7 @@
 //  Family+CoreDataProperties.swift
 //  CoreDataDemo
 //
-//  Created by Eugene G on 4/27/22.
+//  Created by Eugene G on 4/29/22.
 //
 //
 

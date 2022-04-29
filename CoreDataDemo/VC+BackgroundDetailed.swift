@@ -87,6 +87,9 @@ extension VC {
 //                            newPerson.name = txt
 //                            newPerson.age = 10
 //                            newPerson.gender = "Male"
+//                            newPerson.idURL = newPerson.objectID.uriRepresentation()
+//                            print("✅ Created Object with ID: \(String(describing: newPerson.idURL?.absoluteString))")
+
 //                            self?.printThread(operation: "New Person Created")
 //
 //                            // - Save the Data
@@ -122,6 +125,9 @@ extension VC {
                         newPerson.name = txt
                         newPerson.age = 10
                         newPerson.gender = "Male"
+                        newPerson.idURL = newPerson.objectID.uriRepresentation()
+                        print("✅ Created Object with ID: \(String(describing: newPerson.idURL?.absoluteString))")
+
                         self?.printThread(operation: "New Person Created")
 
                         // - Save the Data

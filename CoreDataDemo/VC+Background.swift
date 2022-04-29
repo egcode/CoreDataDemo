@@ -70,6 +70,8 @@ extension VC {
                         newPerson.name = txt
                         newPerson.age = 10
                         newPerson.gender = "Male"
+                        newPerson.idURL = newPerson.objectID.uriRepresentation()
+                        print("✅ Created Object with ID: \(String(describing: newPerson.idURL?.absoluteString))")
                         self?.printThread(operation: "New Person Created")
 
                         // - Save the Data
@@ -151,8 +153,8 @@ extension VC {
 
                         // - Save the Data
                         do {
-                            try context.save()
-                            self?.printThread(operation: "Save Context")
+                            try self?.contextMain.save()
+                            self?.printThread(operation: "Save Context Main")
 
                         } catch {
                             print("⛔️Unable To save person \(error)")
