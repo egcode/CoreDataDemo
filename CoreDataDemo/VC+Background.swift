@@ -44,7 +44,7 @@ extension VC {
                 self.printThread(operation: "Update TableView")
             }
         } catch {
-            print("ERROR: \(error)")
+            print("⛔️ERROR: \(error)")
         }
     }
 
@@ -77,7 +77,7 @@ extension VC {
                             try context.save()
                             self?.printThread(operation: "Save Context")
                         } catch {
-                            print("Unable To save person \(error)")
+                            print("⛔️Unable To save person \(error)")
                         }
                         
                         // - Re-Fetch the data
@@ -120,7 +120,7 @@ extension VC {
                     self?.printThread(operation: "Save Context")
 
                 } catch {
-                    print("Unable save after delet a person: \(error)")
+                    print("⛔️Unable save after delet a person: \(error)")
                 }
 
                 // - Refetch the data
@@ -155,7 +155,7 @@ extension VC {
                             self?.printThread(operation: "Save Context")
 
                         } catch {
-                            print("Unable To save person \(error)")
+                            print("⛔️Unable To save person \(error)")
                         }
                         
                         // - Re-Fetch the data

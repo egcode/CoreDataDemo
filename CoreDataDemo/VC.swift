@@ -76,7 +76,7 @@ class VC: UIViewController {
             self.people = try contextMain.fetch(request)
             DispatchQueue.main.async { self.tableView.reloadData() }
         } catch {
-            print("ERROR: \(error)")
+            print("⛔️ERROR: \(error)")
         }
     }
 
@@ -104,7 +104,7 @@ class VC: UIViewController {
                     do {
                         try self.contextMain.save()
                     } catch {
-                        print("Unable To save person \(error)")
+                        print("⛔️Unable To save person \(error)")
                     }
                     
                     // - Re-Fetch the data
@@ -138,7 +138,7 @@ class VC: UIViewController {
         do {
             try self.contextMain.save()
         } catch {
-            print("Unable save after delet a person: \(error)")
+            print("⛔️Unable save after delet a person: \(error)")
         }
 
         // - Refetch the data
@@ -164,7 +164,7 @@ class VC: UIViewController {
                     do {
                         try self.contextMain.save()
                     } catch {
-                        print("Unable To save person \(error)")
+                        print("⛔️Unable To save person \(error)")
                     }
                     
                     // - Re-Fetch the data
@@ -213,7 +213,7 @@ class VC: UIViewController {
         do {
             try self.contextMain.save()
         } catch {
-            print("Unable To save new person in demo \(error)")
+            print("⛔️Unable To save new person in demo \(error)")
         }
         
         

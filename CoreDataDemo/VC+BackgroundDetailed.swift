@@ -15,28 +15,30 @@ extension VC {
     func fetchPeopleBackgroundThreadDetailed() {
         self.printThread(operation: "Fetch All Origin")
         
-        do {
-            
-            let request = Person.fetchRequest() as NSFetchRequest<Person>
-            
-            // Filter, only display people that has `blah` in their names
-//            let blah = "blah"
-//            let pred = NSPredicate(format: "name CONTAINS %@", blah)
-//            request.predicate = pred
-            
-            // Sort, by name
-            let sort = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors = [sort]
-            self.people = try contextMain.fetch(request)
-            
-            // Update On Main Thread
-            self.contextMain.perform {
+        self.contextMain.performAndWait {
+            do {
+
+                let request = Person.fetchRequest() as NSFetchRequest<Person>
+                
+//                // Filter, only display people that has `blah` in their names
+//                let blah = "blah"
+//                let pred = NSPredicate(format: "name CONTAINS %@", blah)
+//                request.predicate = pred
+
+                // Sort, by name
+                let sort = NSSortDescriptor(key: "name", ascending: true)
+                request.sortDescriptors = [sort]
+                self.people = try contextMain.fetch(request)
+                self.printThread(operation: "Fetch All contextMain.fetch")
+
                 self.tableView.reloadData()
                 self.printThread(operation: "Update TableView")
+            
+            } catch {
+                print("⛔️ERROR: \(error)")
             }
-        } catch {
-            print("ERROR: \(error)")
         }
+        
     }
 
     // MARK: - CoreData Add, Remove, Edit - Background Thread
@@ -52,29 +54,46 @@ extension VC {
                 if let txt = textField.text {
                     print("\nPerson Added :: \(txt)")
                     self.printThread(operation: "Add Person Origin")
+                    
+                    self.contextPrivate.parent = self.contextMain // - MUST
+                    self.contextPrivate.perform { [weak self] in
+                        if let s = self {
+                            // - Create CoreData Person
+                            let newPerson = Person(context: s.contextPrivate)
+                            newPerson.name = txt
+                            newPerson.age = 10
+                            newPerson.gender = "Male"
+                            self?.printThread(operation: "New Person Created")
 
-                    // Performs on Background Thread
-                    self.persistentContainer.performBackgroundTask { [weak self] (context) in
-                        
-                        // - Create CoreData Person
-                        let newPerson = Person(context: context)
-                        newPerson.name = txt
-                        newPerson.age = 10
-                        newPerson.gender = "Male"
-                        self?.printThread(operation: "New Person Created")
+                            // - Save the Data
+                            do {
+                                // Save Private Context
+                                try s.contextPrivate.save()
+                                s.printThread(operation: "Save Private Context")
+                                
+                                
+                                s.contextMain.performAndWait {
+                                    do {
+                                        // Save Main Context
+                                        try s.contextMain.save()
+                                        s.printThread(operation: "Save Main Context")
 
-                        // - Save the Data
-                        do {
-                            try context.save()
-                            self?.printThread(operation: "Save Context")
-                        } catch {
-                            print("Unable To save person \(error)")
+                                        // - Re-Fetch the data
+                                        s.fetchPeopleBackgroundThreadDetailed()
+                                    } catch {
+                                        fatalError("⛔️ failure to save context: \(error)")
+                                    }
+                                }
+                                
+                            } catch {
+                                fatalError("⛔️Unable To save person \(error)")
+                            }
+                            
                         }
                         
-                        // - Re-Fetch the data
-                        self?.fetchPeopleBackgroundThread()
+                        
                     }
-                    
+                                    
                 } else {
                     print("No text to add")
                 }
@@ -111,7 +130,7 @@ extension VC {
                     self?.printThread(operation: "Save Context")
 
                 } catch {
-                    print("Unable save after delet a person: \(error)")
+                    print("⛔️Unable save after delet a person: \(error)")
                 }
 
                 // - Refetch the data
@@ -146,7 +165,7 @@ extension VC {
                             self?.printThread(operation: "Save Context")
 
                         } catch {
-                            print("Unable To save person \(error)")
+                            print("⛔️Unable To save person \(error)")
                         }
                         
                         // - Re-Fetch the data
