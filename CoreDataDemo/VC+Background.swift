@@ -109,6 +109,7 @@ extension VC {
         print("\nPerson Remove :: \(String(describing: personToRemove.name))")
         self.printThread(operation: "Remove Person Origin")
 
+        // Performs on Background Thread
         self.persistentContainer.performBackgroundTask { [weak self] (unusedContext) in
             if let s = self {
 
@@ -145,6 +146,7 @@ extension VC {
                     print("\nPerson Updated :: \(txt)")
                     self.printThread(operation: "Edit Person Origin")
 
+                    // Performs on Background Thread
                     self.persistentContainer.performBackgroundTask { [weak self] (context) in
                         
                         // - Update CoreData Person name

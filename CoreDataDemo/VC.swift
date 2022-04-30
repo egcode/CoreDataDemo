@@ -23,7 +23,7 @@ class VC: UIViewController {
     let contextMain = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
     
-    let performOn:PerformOn = .background
+    let performOn:PerformOn = .backgroundDetailed
     
     
     // Private ManagedObjectContext for using in BackgroundDetailed examples

@@ -14,31 +14,7 @@ extension VC {
         
     func fetchPeopleBackgroundThreadDetailed() {
         self.printThread(operation: "Fetch All Origin")
-        
-//        self.contextMain.performAndWait {
-//            do {
-//
-//                let request = Person.fetchRequest() as NSFetchRequest<Person>
-//
-////                // Filter, only display people that has `blah` in their names
-////                let blah = "blah"
-////                let pred = NSPredicate(format: "name CONTAINS %@", blah)
-////                request.predicate = pred
-//
-//                // Sort, by name
-//                let sort = NSSortDescriptor(key: "name", ascending: true)
-//                request.sortDescriptors = [sort]
-//                self.people = try contextMain.fetch(request)
-//                self.printThread(operation: "Fetch All contextMain.fetch")
-//
-//                self.tableView.reloadData()
-//                self.printThread(operation: "Update TableView")
-//
-//            } catch {
-//                print("⛔️ERROR: \(error)")
-//            }
-//        }
-        
+                
         self.contextPrivate.parent = self.contextMain
         self.contextPrivate.perform { [weak self] in
             if let s = self {                
@@ -69,33 +45,6 @@ extension VC {
                 assertionFailure("🆘 Unable to get self")
             }
         }
-
-        
-        
-        
-        
-//        do {
-//            let request = Person.fetchRequest() as NSFetchRequest<Person>
-//
-//            // Filter, only display people that has `blah` in their names
-////            let blah = "blah"
-////            let pred = NSPredicate(format: "name CONTAINS %@", blah)
-////            request.predicate = pred
-//
-//            // Sort, by name
-//            let sort = NSSortDescriptor(key: "name", ascending: true)
-//            request.sortDescriptors = [sort]
-//            self.people = try contextMain.fetch(request)
-//
-//            // Update On Main Thread
-//            self.contextMain.perform {
-//                self.tableView.reloadData()
-//                self.printThread(operation: "Update TableView")
-//            }
-//        } catch {
-//            print("⛔️ERROR: \(error)")
-//        }
-        
     }
 
     // MARK: - CoreData Add, Remove, Edit - Background Thread
@@ -195,9 +144,9 @@ extension VC {
         // - Person to remove
         let personToRemove = self.people[indexPath.row]
         print("\nPerson Remove :: \(String(describing: personToRemove.name))")
-        
         self.printThread(operation: "Remove Person Origin")
 
+        // Performs on Background Thread
         self.persistentContainer.performBackgroundTask { [weak self] (unusedContext) in
             if let s = self {
 
@@ -234,6 +183,7 @@ extension VC {
                     print("\nPerson Updated :: \(txt)")
                     self.printThread(operation: "Edit Person Origin")
 
+                    // Performs on Background Thread
                     self.persistentContainer.performBackgroundTask { [weak self] (context) in
                         
                         // - Update CoreData Person name
