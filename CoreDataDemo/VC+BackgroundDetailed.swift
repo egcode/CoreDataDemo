@@ -210,10 +210,11 @@ extension VC {
                 if let txt = textField.text {
                     print("\nPerson Updated :: \(txt)")
                     self.printThread(operation: "Edit Person Origin")
-
-                    // Performs on Background Thread
-                    self.persistentContainer.performBackgroundTask { [weak self] (context) in
-                        
+                    
+                    
+                    self.contextPrivate.parent = self.contextMain
+                    self.contextPrivate.perform { [weak self] in
+                            
                         // - Update CoreData Person name
                         selectedPerson.name = txt
                         self?.printThread(operation: "Update Person")
@@ -226,11 +227,35 @@ extension VC {
                         } catch {
                             print("⛔️Unable To save person \(error)")
                         }
-                        
+
                         // - Re-Fetch the data
                         self?.fetchPeopleBackgroundThread()
-
+                        
                     }
+                    
+                    
+                    
+
+//                    // Performs on Background Thread
+//                    self.persistentContainer.performBackgroundTask { [weak self] (context) in
+//
+//                        // - Update CoreData Person name
+//                        selectedPerson.name = txt
+//                        self?.printThread(operation: "Update Person")
+//
+//                        // - Save the Data
+//                        do {
+//                            try self?.contextMain.save()
+//                            self?.printThread(operation: "Save Context Main")
+//
+//                        } catch {
+//                            print("⛔️Unable To save person \(error)")
+//                        }
+//
+//                        // - Re-Fetch the data
+//                        self?.fetchPeopleBackgroundThread()
+//
+//                    }
                     
                     
                 } else {
