@@ -16,7 +16,7 @@ extension VC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.people!.count
+        return self.people.count
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -62,7 +62,7 @@ extension VC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdent", for: indexPath)
         
-        let person = self.people![indexPath.row]
+        let person = self.people[indexPath.row]
         cell.textLabel?.text = person.name
         return cell
     }

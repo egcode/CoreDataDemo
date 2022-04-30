@@ -18,8 +18,8 @@ class VC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var people:[Person]?
-    
+    var people = [Person]()
+
     let contextMain = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
     
@@ -131,7 +131,7 @@ class VC: UIViewController {
     func removePerson(indexPath: IndexPath) {
         
         // - Person to remove
-        let personToRemove = self.people![indexPath.row]
+        let personToRemove = self.people[indexPath.row]
 
         // - Remove the person
         self.contextMain.delete(personToRemove)
@@ -148,7 +148,7 @@ class VC: UIViewController {
     }
     
     func editPerson(indexPath: IndexPath) {
-        let selectedPerson = self.people![indexPath.row]
+        let selectedPerson = self.people[indexPath.row]
         
         let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField : UITextField!) -> Void in

@@ -105,8 +105,8 @@ extension VC {
     func removePersonBackgroundThread(indexPath: IndexPath) {
         
         // - Person to remove
-        let personToRemove = self.people![indexPath.row]
-        print("\nPerson Remove :: \(personToRemove.name)")
+        let personToRemove = self.people[indexPath.row]
+        print("\nPerson Remove :: \(String(describing: personToRemove.name))")
         self.printThread(operation: "Remove Person Origin")
 
         self.persistentContainer.performBackgroundTask { [weak self] (unusedContext) in
@@ -133,7 +133,7 @@ extension VC {
     }
     
     func editPersonBackgroundThread(indexPath: IndexPath) {
-        let selectedPerson = self.people![indexPath.row]
+        let selectedPerson = self.people[indexPath.row]
         
         let alertController = UIAlertController(title: "Title", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
