@@ -80,19 +80,13 @@ extension VC {
                                 try s.contextPrivate.save()
                                 s.printThread(operation: "Save Private Context")
 
+                                // Save Main Context
+                                try s.contextMain.save()
+                                s.printThread(operation: "Save Main Context")
 
-                                s.contextMain.performAndWait {
-                                    do {
-                                        // Save Main Context
-                                        try s.contextMain.save()
-                                        s.printThread(operation: "Save Main Context")
+                                // - Re-Fetch the data
+                                s.fetchPeopleBackgroundThreadDetailed()
 
-                                        // - Re-Fetch the data
-                                        s.fetchPeopleBackgroundThreadDetailed()
-                                    } catch {
-                                        fatalError("⛔️ failure to save context: \(error)")
-                                    }
-                                }
                             } catch {
                                 fatalError("⛔️Unable To save person \(error)")
                             }
