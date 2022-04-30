@@ -29,8 +29,8 @@ extension VC {
                     // Sort, by name
                     let sort = NSSortDescriptor(key: "name", ascending: true)
                     request.sortDescriptors = [sort]
-                    s.people = try s.contextPrivate.fetch(request)
-                    s.printThread(operation: "Fetch All contextPrivate.fetch")
+                    s.people = try s.contextMain.fetch(request)
+                    s.printThread(operation: "Fetch All contextMain.fetch")
                     
                     // Update On Main Thread
                     s.contextMain.perform {
@@ -145,19 +145,21 @@ extension VC {
         let personToRemove = self.people[indexPath.row]
         print("\nPerson Remove :: \(String(describing: personToRemove.name))")
         self.printThread(operation: "Remove Person Origin")
-
+        
         // Performs on Background Thread
-        self.persistentContainer.performBackgroundTask { [weak self] (unusedContext) in
+        self.contextPrivate.parent = self.contextMain // - MUST
+        self.contextPrivate.automaticallyMergesChangesFromParent = true
+        self.contextPrivate.perform { [weak self] in
             if let s = self {
 
                 // - Remove the person
                 s.contextMain.delete(personToRemove) // USE GLOBAL CONTEXT
-                s.printThread(operation: "Removed Person")
+                s.printThread(operation: "Removed Person Context Main")
 
                 // - Save the data
                 do {
                     try s.contextMain.save()
-                    self?.printThread(operation: "Save Context")
+                    self?.printThread(operation: "Save Context Main")
 
                 } catch {
                     print("⛔️Unable save after delet a person: \(error)")
@@ -166,8 +168,34 @@ extension VC {
                 // - Refetch the data
                 s.fetchPeopleBackgroundThread()
             }
-
+            
         }
+
+
+        
+        
+//        // Performs on Background Thread
+//        self.persistentContainer.performBackgroundTask { [weak self] (unusedContext) in
+//            if let s = self {
+//
+//                // - Remove the person
+//                s.contextMain.delete(personToRemove) // USE GLOBAL CONTEXT
+//                s.printThread(operation: "Removed Person")
+//
+//                // - Save the data
+//                do {
+//                    try s.contextMain.save()
+//                    self?.printThread(operation: "Save Context")
+//
+//                } catch {
+//                    print("⛔️Unable save after delet a person: \(error)")
+//                }
+//
+//                // - Refetch the data
+//                s.fetchPeopleBackgroundThread()
+//            }
+//
+//        }
     }
     
     func editPersonBackgroundThreadDetailed(indexPath: IndexPath) {
