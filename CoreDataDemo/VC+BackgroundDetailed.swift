@@ -66,7 +66,8 @@ extension VC {
                     self.contextPrivate.perform { [weak self] in
                         if let s = self {
                             // - Create CoreData Person
-                            let newPerson = Person(context: s.contextPrivate)
+//                            let newPerson = Person(context: s.contextPrivate)
+                            let newPerson = Person(context: s.contextMain)
                             newPerson.name = txt
                             newPerson.age = 10
                             newPerson.gender = "Male"
@@ -76,9 +77,9 @@ extension VC {
 
                             // - Save the Data
                             do {
-                                // Save Private Context
-                                try s.contextPrivate.save()
-                                s.printThread(operation: "Save Private Context")
+//                                // Save Private Context
+//                                try s.contextPrivate.save()
+//                                s.printThread(operation: "Save Private Context")
 
                                 // Save Main Context
                                 try s.contextMain.save()
