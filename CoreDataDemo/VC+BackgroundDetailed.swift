@@ -63,7 +63,8 @@ extension VC {
                     
                     // Performs on Background Thread
                     self.contextPrivate.parent = self.contextMain // - MUST
-                    self.contextPrivate.perform { [weak self] in
+//                    self.contextPrivate.performAndWait { [weak self] in  // - Syncronous, will run in main thread
+                    self.contextPrivate.perform { [weak self] in  // - Asyncrounous, will run in background thread
                         if let s = self {
                             // - Create CoreData Person
 //                            let newPerson = Person(context: s.contextPrivate)
